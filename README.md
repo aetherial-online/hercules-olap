@@ -68,8 +68,6 @@ curl -X POST "http://127.0.0" \
 curl -X POST "http://127.0.0" \
   -H "Content-Type: text/plain" \
   -d "SELECT tenant_id, COUNT(*) AS total, AVG(latency_ms) AS avg_ms FROM events GROUP BY tenant_id"
-```
-
 ---
 
 ## Storage Configuration (Local NVMe, AWS S3, Cloudflare R2)
@@ -93,13 +91,14 @@ cargo run --release
 
 ```text
 hercules-olap/src/
-├── main.rs        # Runtime bootstrap & background worker supervision
-├── config.rs      # Storage & compaction configuration
-├── schema.rs      # Dynamic Apache Arrow schema inference
-├── wal.rs         # Crash-safe append-only Write-Ahead Log
+├── main.rs        # Runtime bootstrap, worker supervision & graceful shutdown
+├── config.rs      # Storage backend & compaction configuration
+├── error.rs       # Centralized error types & HTTP status mapping
+├── schema.rs      # Dynamic Apache Arrow schema inference & validation
+├── wal.rs         # Crash-safe append-only Write-Ahead Log (fsync)
 ├── memtable.rs    # Lock-free in-memory Arrow RecordBatch buffer
-├── compactor.rs   # Async ZSTD Parquet background compactor
-├── storage.rs     # Pluggable Local / S3 / R2 object store layer
+├── compactor.rs   # Async background ZSTD Parquet compactor
+├── storage.rs     # Pluggable Local / S3 / R2 / GCS object store layer
 ├── engine.rs      # Vectorized Apache DataFusion SQL query federation
 └── server.rs      # ClickHouse-compatible HTTP ingestion & query API
 ```
@@ -115,12 +114,14 @@ hercules-olap/src/
 
 ---
 
-## Contributing & Community
+## Contributing, Governance & Security
 
-We welcome bug reports, performance benchmarks, and pull requests!
-* **Report a Bug or Request a Feature:** Use our [GitHub Issue Templates](../../issues/new/choose).
-* **Contributing Guidelines:** Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a PR.
-* **Security Vulnerabilities:** Please review [SECURITY.md](SECURITY.md) for responsible disclosure.
+We welcome bug reports, performance benchmarks, and pull requests from the community:
+* **Report a Bug:** Open a structured issue via our [Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md).
+* **Propose a Feature:** Suggest new capabilities via our [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md).
+* **Contributing & CLA:** Read [CONTRIBUTING.md](CONTRIBUTING.md) for local setup (`cargo fmt`, `cargo clippy`, `cargo test`) and Contributor License Agreement terms.
+* **Community Standards:** All participants must adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
+* **Security Disclosure:** Please report vulnerabilities privately following [SECURITY.md](SECURITY.md).
 
 ---
 
