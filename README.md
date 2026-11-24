@@ -24,12 +24,22 @@
 
 **Hercules OLAP** is a standalone, single-binary columnar database engine written in 100% safe Rust. Designed for real-time telemetry, log ingestion, observability, and high-concurrency analytical queries, Hercules combines lock-free **Apache Arrow** in-memory ingestion buffers, crash-safe Write-Ahead Logging (WAL), background **ZSTD-compressed Apache Parquet** compaction, and vectorized **Apache DataFusion** SQL execution—with **zero C++ dependencies**.
 
-### Key Features
-* **100% Pure Rust & Memory-Safe:** Compiles into a single lightweight binary with zero external runtime daemons or ZooKeeper coordination.
-* **Real-Time Read-After-Write:** Streaming inserts land in a lock-free columnar `MemTable` and are immediately queryable alongside compacted `.parquet` segments.
-* **Pluggable Storage Backends:** Run locally on NVMe disks or attach your own **AWS S3**, **Cloudflare R2**, or **Google Cloud Storage** buckets.
-* **8x–12x Storage Compression:** Automatic background compaction converts raw ingestion batches into sorted, `ZSTD`-compressed Parquet files with min/max zone-map pruning.
-* **ClickHouse-Compatible HTTP API:** Ingest `JSONEachRow` batches and execute ANSI SQL queries over standard HTTP (`POST /`).
+---
+
+### Why Hercules OLAP? (Key Highlights)
+* **100% Pure Rust & Zero C++ Dependencies:** Compiles into a single lightweight, memory-safe binary with no external runtime daemons, JVM overhead, or ZooKeeper coordination.
+* **8x–12x Storage Compression & Zone-Map Pruning:** Automatic background compaction converts raw ingestion batches into sorted, `ZSTD`-compressed Parquet files with min/max zone-map statistics to skip irrelevant data blocks.
+* **ClickHouse-Compatible HTTP Wire Protocol:** Drop-in familiarity—ingest `JSONEachRow` batches and execute ANSI SQL queries over standard HTTP (`POST /`) without rewriting existing client pipelines.
+* **Zero-Ops Elastic Architecture:** Decouples compute from storage so developers can run locally in seconds or scale statelessly against cloud object stores.
+
+---
+
+### Core Capabilities (`v0.1.0` OSS)
+1. **High-Throughput Streaming Ingestion:** Accepts batched JSON (`JSONEachRow`) and Apache Arrow streams over HTTP, appending atomically to a lock-free in-memory Arrow `MemTable` backed by a crash-safe Write-Ahead Log (WAL).
+2. **Unified Hot + Cold Querying:** Queries executed via `DataFusion` seamlessly merge live uncompacted rows in RAM (`MemTable`) with historical `ZSTD`-compressed `.parquet` segments on disk or object storage—guaranteeing real-time read-after-write visibility.
+3. **Full Analytical SQL Support:** Native vectorized execution (`AVX2`/`NEON` SIMD) for `SELECT`, `WHERE`, `GROUP BY`, `ORDER BY`, `HAVING`, window functions, `JOIN`s, approximate distinct counts (`HyperLogLog`), and time-bucketing (`date_trunc`).
+4. **Pluggable Storage Backends (`object_store`):** Runs identically on local NVMe disks (single-binary developer mode) or directly against **AWS S3**, **Cloudflare R2**, and **Google Cloud Storage** (cloud-native mode).
+5. **Dual-License IP Protection (`AGPLv3` + Commercial):** Free to run, audit, and benchmark under `AGPLv3`, while cloud providers or SaaS vendors offering managed Hercules services or proprietary closed-source forks require a **Hercules Commercial License** from Ætherial.
 
 ---
 
