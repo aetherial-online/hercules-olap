@@ -73,10 +73,10 @@ impl WriteAheadLog {
                 let bytes = fs::read(&path)
                     .await
                     .map_err(|e| HerculesError::Storage(format!("WAL read error: {e}")))?;
-                if !bytes.is_empty() {
-                    if let Some(stem) = path.file_stem().and_then(|s| s.to_str()) {
-                        recovered.push((stem.to_string(), bytes));
-                    }
+                if !bytes.is_empty()
+                    && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
+                {
+                    recovered.push((stem.to_string(), bytes));
                 }
             }
         }

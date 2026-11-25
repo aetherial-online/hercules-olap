@@ -36,10 +36,10 @@ impl QueryEngine {
             .await
             .map_err(|e| HerculesError::Storage(format!("ObjectStore list error: {e}")))?
         {
-            if let Some((table, _)) = meta.location.as_ref().split_once('/') {
-                if !table.is_empty() {
-                    table_names.insert(table.to_string());
-                }
+            if let Some((table, _)) = meta.location.as_ref().split_once('/')
+                && !table.is_empty()
+            {
+                table_names.insert(table.to_string());
             }
         }
 
