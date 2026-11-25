@@ -3,8 +3,7 @@
 # HERCULES OLAP
 ## Aetherial Stateless-First Columnar Analytics Engine
 
-### **Hercules is a standalone, ultra-fast, cloud-native columnar database built in pure Rust for real-time telemetry, log ingestion, time-series analytics, and high-concurrency OLAP workloads.
-While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.**
+### **Hercules is a standalone, ultra-fast, cloud-native columnar database built in pure Rust for real-time telemetry, log ingestion, time-series analytics, and high-concurrency OLAP workloads. While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.**
 
 [![CI Verification](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml/badge.svg)](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml)
 [![License: AGPL v3](https://badgen.net/badge/License/AGPLv3/blue)](./LICENSE)
