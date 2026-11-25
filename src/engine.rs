@@ -47,6 +47,8 @@ impl QueryEngine {
         for table in table_names {
             let live_batches = self.memtable.snapshot_batches(&table);
             let parquet_prefix = format!("{}{}/", self.storage.base_url, table);
+            /* let base = self.storage.base_url.as_str().trim_end_matches('/'); */
+            /* let parquet_prefix = format!("{base}/{table}/"); */
             let has_parquet = self.table_has_parquet(&table).await?;
 
             match (has_parquet, live_batches.is_empty()) {

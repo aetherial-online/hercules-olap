@@ -32,9 +32,12 @@ impl StorageLayer {
                     HerculesError::Storage(format!("LocalFileSystem init error: {e}"))
                 })?;
 
-                let base_url = Url::from_directory_path(&abs_dir).map_err(|_| {
+                let base_url = Url::parse("hercules://store/")
+                    .map_err(|e| HerculesError::Storage(format!("Invalid store URL: {e}")))?;
+
+                /* let base_url = Url::from_directory_path(&abs_dir).map_err(|_| {
                     HerculesError::Storage("Invalid local directory URL".to_string())
-                })?;
+                })?; */
 
                 Ok(Self {
                     store: Arc::new(local),

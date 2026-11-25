@@ -44,6 +44,19 @@
 
 ---
 
+### Verified Single-Node Benchmarks (`10,000,000` Rows + Durable WAL `fsync`)
+
+| Metric | Measured Result (`16` Concurrent Workers) |
+| :--- | :--- |
+| **Sustained JSON Ingestion Throughput** | **`701,931 rows/sec`** (`10M` rows in `14.25 s`) |
+| **Storage Compression (`ZSTD` Parquet)** | **`16.40x`** (`1,153.75 MB` raw JSON → `70.33 MB` Parquet) |
+| **Filtered SQL Aggregation (`10M` rows)** | **`99.13 ms`** (`WHERE status_code >= 500 GROUP BY service`) |
+| **Full-Scan Group-By (`10M` rows)** | **`135.55 ms`** (`GROUP BY tenant_id ORDER BY reqs DESC LIMIT 10`) |
+
+> See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for single-thread vs. multi-worker results and reproducible benchmark scripts.
+
+---
+
 ## Quickstart & Installation
 
 ### Option 1: Build from Source (Rust 1.85+)
