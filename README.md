@@ -25,13 +25,13 @@
 
 ## Overview
 
-**Hercules OLAP** is a standalone, single-binary columnar database engine written in 100% safe Rust. Designed for real-time telemetry, log ingestion, observability, and high-concurrency analytical queries, Hercules combines lock-free **Apache Arrow** in-memory ingestion buffers, crash-safe Write-Ahead Logging (WAL), background **ZSTD-compressed Apache Parquet** compaction, and vectorized **Apache DataFusion** SQL execution—with **zero C++ dependencies**.
+**Hercules OLAP** is a standalone,  ultra-fast, cloud-native, single-binary columnar database engine written in 100% safe Rust. Designed for real-time telemetry, log ingestion, observability, time-series analytics, and high-concurrency OLAP workloads, combines lock-free **Apache Arrow** in-memory ingestion buffers, crash-safe Write-Ahead Logging (WAL), background **ZSTD-compressed Apache Parquet** compaction, and vectorized **Apache DataFusion** SQL execution—with **zero C++ dependencies**.
+
+While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.
 
 ---
 
 ### Why Hercules OLAP? (Key Highlights)
-
-Hercules is a standalone, ultra-fast, cloud-native columnar database built in pure Rust for real-time telemetry, log ingestion, time-series analytics, and high-concurrency OLAP workloads. While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.
 
 * **100% Pure Rust & Zero C++ Dependencies:** Compiles into a single lightweight, memory-safe binary with no external runtime daemons, JVM overhead, or ZooKeeper coordination.
 * **8x–12x Storage Compression & Zone-Map Pruning:** Automatic background compaction converts raw ingestion batches into sorted, `ZSTD`-compressed Parquet files with min/max zone-map statistics to skip irrelevant data blocks.
