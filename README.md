@@ -53,6 +53,26 @@
 | **Filtered SQL Aggregation (`10M` rows)** | **`99.13 ms`** (`WHERE status_code >= 500 GROUP BY service`) |
 | **Full-Scan Group-By (`10M` rows)** | **`135.55 ms`** (`GROUP BY tenant_id ORDER BY reqs DESC LIMIT 10`) |
 
+---
+
+## Measured Ingestion & Storage Results (10M Rows)
+
+| Benchmark Profile | Script | Ingestion Time | Sustained Throughput | Compacted Parquet (`ZSTD`) | Compression Ratio |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Single-Thread Sync** (`1` client) | `ingest_and_query.py` | `64.22 s` | **`155,726 rows/sec`** | `81.14 MB` | **`14.22x`** |
+| **Concurrent (`8` workers)** | `ingest_and_query_workers.py` | `15.99 s` | **`625,383 rows/sec`** | `71.34 MB` | **`16.17x`** |
+| **Concurrent (`16` workers)** | `ingest_and_query_workers.py` | **`14.25 s`** | **`701,931 rows/sec`** | **`70.33 MB`** | **`16.40x`** |
+
+---
+
+## Analytical SQL Query Latency (10,000,000 Rows)
+
+| Query ID | Analytical Workload | SQL Statement | Measured Latency |
+| :--- | :--- | :--- | :---: |
+| **`Q1`** | Full-Scan Group-By (Top 10) | `SELECT tenant_id, COUNT(*) AS reqs, AVG(latency_ms) AS avg_lat FROM bench_events GROUP BY tenant_id ORDER BY reqs DESC LIMIT 10` | **`135.55 ms`** |
+| **`Q2`** | Filtered Predicate Pushdown | `SELECT service, COUNT(*) AS errors FROM bench_events WHERE status_code >= 500 GROUP BY service ORDER BY errors DESC` | **`99.13 ms`** |
+| **`Q3`** | Multi-Column Aggregation | `SELECT tenant_id, service, SUM(bytes_out) AS total_bytes FROM bench_events GROUP BY tenant_id, service LIMIT 10` | **`237.57 ms`** |
+
 > See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for single-thread vs. multi-worker results and reproducible benchmark scripts.
 
 ---
