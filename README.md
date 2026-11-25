@@ -3,10 +3,11 @@
 # HERCULES OLAP
 ### **High-Throughput, Pure-Rust Columnar Analytics & Real-Time Telemetry Engine**
 
-[![CI Verification](https://github.com)](https://github.com)
-[![License: AGPL v3](https://shields.io)](LICENSE)
-[![Commercial License](https://shields.io)](COMMERCIAL_LICENSE.md)
-[![Rust](https://shields.io)](https://rust-lang.org)
+[![CI Verification](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml/badge.svg)](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml)
+[![License: AGPL v3](https://badgen.net/badge/License/AGPLv3/blue)](./LICENSE)
+[![Commercial License](https://badgen.net/badge/Commercial/Available/purple)](./COMMERCIAL_LICENSE.md)
+[![Core: Rust](https://badgen.net/badge/Core/Rust/red)](https://rust-lang.org)
+[![Sponsor](https://badgen.net/badge/Sponsor/GitHub/black?icon=github)](https://github.com/aetherial-online/aetherial-zero-footprint)
 
 <a href="https://aetherial.online" target="_blank" rel="noopener noreferrer"><strong>Ætherial Ecosystem</strong></a>
 &nbsp;&middot;&nbsp;
