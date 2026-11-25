@@ -3,7 +3,7 @@
 # HERCULES OLAP
 ## Aetherial Stateless-First Columnar Analytics Engine
 
-### **Hercules is a standalone, ultra-fast, cloud-native columnar database built in pure Rust for real-time telemetry, log ingestion, time-series analytics, and high-concurrency OLAP workloads. While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.**
+
 
 [![CI Verification](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml/badge.svg)](https://github.com/aetherial-online/hercules-olap/actions/workflows/ci.yml)
 [![License: AGPL v3](https://badgen.net/badge/License/AGPLv3/blue)](./LICENSE)
@@ -30,6 +30,9 @@
 ---
 
 ### Why Hercules OLAP? (Key Highlights)
+
+Hercules is a standalone, ultra-fast, cloud-native columnar database built in pure Rust for real-time telemetry, log ingestion, time-series analytics, and high-concurrency OLAP workloads. While legacy columnar databases rely on heavy C++ codebases, complex ZooKeeper/Keeper cluster coordination, and stateful local NVMe storage, Hercules is built from first principles for the modern object-storage era.
+
 * **100% Pure Rust & Zero C++ Dependencies:** Compiles into a single lightweight, memory-safe binary with no external runtime daemons, JVM overhead, or ZooKeeper coordination.
 * **8x–12x Storage Compression & Zone-Map Pruning:** Automatic background compaction converts raw ingestion batches into sorted, `ZSTD`-compressed Parquet files with min/max zone-map statistics to skip irrelevant data blocks.
 * **ClickHouse-Compatible HTTP Wire Protocol:** Drop-in familiarity—ingest `JSONEachRow` batches and execute ANSI SQL queries over standard HTTP (`POST /`) without rewriting existing client pipelines.
