@@ -1,0 +1,21 @@
+# Rust build artifacts & Cargo lockfiles (keep Cargo.lock for binaries, ignore target)
+/target/
+**/*.rs.bk
+*.pdb
+
+# Hercules OLAP local runtime data (WAL & compacted Parquet segments)
+/data/
+*.wal
+*.parquet
+
+# Environment & credentials (never commit S3/R2 keys)
+.env
+.env.*
+*.pem
+*.key
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
